@@ -6,8 +6,8 @@ Code and data for
 
 This repository currently holds two things:
 
-1. a toy citation network and a minimal script that computes the exact 1D on it;
-2. the 1D scores of 53,162,290 OpenAlex papers (see [Data](#data)).
+1. `code`: a toy citation network and a minimal script that computes the exact 1D on it;
+2. `data`: 1D scores of 53,162,290 OpenAlex papers (see [Data](#data)).
 
 ## What 1D is
 
@@ -37,10 +37,10 @@ Run from the repository folder:
 
 ```shell
 pip install numpy pandas
-python OneD.py
+python code/OneD.py
 ```
 
-`toy_citation_network.csv` lists 17 citations among 10 papers (`citing,cited`; a paper cites only lower-numbered papers). `OneD.py` builds the citation matrix `A` and gets every count from two matrix operations: the column sums `c` (citations of each paper) and `B = AᵀA` (papers citing both of a pair). Expected output:
+`code/toy_citation_network.csv` lists 17 citations among 10 papers (`citing,cited`; a paper cites only lower-numbered papers). `code/OneD.py` builds the citation matrix `A` and gets every count from two matrix operations: the column sums `c` (citations of each paper) and `B = AᵀA` (papers citing both of a pair). Expected output:
 
 ```python
  paper  references  citations   oneD
@@ -65,7 +65,7 @@ The script uses dense matrices and is meant to be read, not scaled. The scores b
 
 ## Data
 
-`oneD_openalex.parquet` — one row per paper, 53,162,290 rows.
+`data/oneD_openalex.parquet` — one row per paper, 53,162,290 rows.
 
 | column | type | meaning |
 | --- | --- | --- |
@@ -77,7 +77,7 @@ SHA-256: `4a824adec19d2a2177fab024d8f839e12258fe995ae31d21629fd6ef79787fc2`
 
 ```python
 import pandas as pd
-oneD = pd.read_parquet("oneD_openalex.parquet").set_index("openalex_id")["oneD_uniform_inf"]
+oneD = pd.read_parquet("data/oneD_openalex.parquet").set_index("openalex_id")["oneD_uniform_inf"]
 ```
 
 How the scores were computed:
@@ -103,7 +103,7 @@ This checks the extraction and the inclusion rules; it is not a second computati
 
 ## License
 
-Code: MIT (see `LICENSE`). Data: CC BY 4.0. OpenAlex itself is CC0.
+Code: MIT (see `code/LICENSE`). Data: CC BY 4.0 (see `data/LICENSE`). OpenAlex itself is CC0.
 
 ## Contact
 
